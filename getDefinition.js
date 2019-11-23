@@ -51,6 +51,4 @@ axios.get(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${argv
 	});
 	
 	//audio option
-	// shortdef option
-	//synonym option
 	//-w for word, -s for synonym or similar words, -p for pronounciation.
