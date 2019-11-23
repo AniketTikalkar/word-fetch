@@ -19,7 +19,7 @@ axios.get(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${argv
 	.then((response) => {
 		if(response.status === 200){
 			
-			console.log(typeof(argv.w) + "  " + typeof(response.data[0].meta.id));
+			
 			for(let count=0;count<response.data.length;count++){
 				if(response.data[count].meta.id == argv.w){
 					console.log(boxen(`${chalk.bold.yellow(response.data[count].fl.toUpperCase())}: `,{padding: 1, margin: 1, borderStyle: 'double'}));
@@ -43,7 +43,6 @@ axios.get(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${argv
 				}
 			}
 			
- //[0].def[0].sseq[1][0][1].dt[1][1][0].t
 			//console.log(response.data[0].def[0].sseq[1][0][1].syn_list[0][0].wd);
 		}
 	}).catch((error) => {
