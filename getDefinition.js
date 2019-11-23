@@ -18,13 +18,22 @@ const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 axios.get(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${argv.w}?key=8d0cc3de-fc56-4ba4-90b7-202045e2b24c`,{ httpsAgent })
 	.then((response) => {
 		if(response.status === 200){
-			//console.log(typeof(argv.w) + "  " + typeof(response.data[0].meta.id));
+			
+			console.log(typeof(argv.w) + "  " + typeof(response.data[0].meta.id));
 			for(let count=0;count<response.data.length;count++){
 				if(response.data[count].meta.id == argv.w){
-					console.log(boxen(`${chalk.bold.yellow(response.data[count].fl.toUpperCase())}: \n`,{padding: 1, margin: 1, borderStyle: 'double'}));
+					console.log(boxen(`${chalk.bold.yellow(response.data[count].fl.toUpperCase())}: `,{padding: 1, margin: 1, borderStyle: 'double'}));
 					for(let def_count=0;def_count<response.data[count].def.length;def_count++){
 						for(let sseq_count=0;sseq_count<response.data[count].def[def_count].sseq.length;sseq_count++){
-							console.log(`${chalk.bold.yellow(sseq_count +1)}` + chalk.bold.yellow(')') + ` ${chalk.cyan(response.data[count].def[def_count].sseq[sseq_count][0][1].dt[0][1])} \n`);
+							console.log(`\n${chalk.bold.yellow(sseq_count +1)}` + chalk.bold.yellow(')') + ` ${chalk.cyan(response.data[count].def[def_count].sseq[sseq_count][0][1].dt[0][1])} `);
+							//if command asks for synonyms
+							if(argv.s){
+								let syn_arr = [];
+								for(let syn_word=0;syn_word<response.data[count].def[def_count].sseq[sseq_count][0][1].syn_list[0].length;syn_word++){
+									syn_arr[syn_word] = response.data[count].def[def_count].sseq[sseq_count][0][1].syn_list[0][syn_word].wd;
+								}
+								console.log(chalk.bold.red('Synonyms : ') + `${chalk.red(syn_arr.join(", "))}` )
+							}
 							for(let eg=0;eg<response.data[count].def[def_count].sseq[sseq_count][0][1].dt[1][1].length;eg++){
 								console.log(chalk.bold.yellow('eg-> ')  + `${chalk.green(response.data[count].def[def_count].sseq[sseq_count][0][1].dt[1][1][eg].t)} \n`.replace(/ *\{[^}]*\} */g, " ").trim());
 							}
@@ -33,7 +42,9 @@ axios.get(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${argv
 					}
 				}
 			}
-			//console.log(response.data[0].def[0].sseq[1][0][1].dt[1][1][0].t);
+			
+ //[0].def[0].sseq[1][0][1].dt[1][1][0].t
+			//console.log(response.data[0].def[0].sseq[1][0][1].syn_list[0][0].wd);
 		}
 	}).catch((error) => {
 		console.log(error);
@@ -42,3 +53,4 @@ axios.get(`https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${argv
 	//audio option
 	// shortdef option
 	//synonym option
+	//-w for word, -s for synonym or similar words, -p for pronounciation.
