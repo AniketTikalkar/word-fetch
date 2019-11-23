@@ -2,8 +2,8 @@
 command line dictionary tool, gives lists the meaning along with example use cases.
 
 # Usage
-$define -w <your_word> 
-$define -w <your_word> -s  ==> if you want to list the synonyms too.
+<p>$define -w <your_word> </your_word> </p>
+<p>$define -w <your_word> -s  ==> if you want to list the synonyms too.</p>
 
 # dependencies
 1) Axios --> $npm install axios
@@ -13,7 +13,8 @@ $define -w <your_word> -s  ==> if you want to list the synonyms too.
 
 # Running the script
 to run, execute the following command <b>once</b> in the cloned repository
-$npm install -g .
+<p>$npm install -g .</p>
 then on, to get the definition, run:
-$define -w <your_word>
-$define -w <your_word> -s for definition with synonyms.
+<p> $define -w <your_word> </p>
+<p> $define -w <your_word> -s for definition with synonyms. </p>
+
